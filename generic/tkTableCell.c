@@ -918,10 +918,10 @@ int Table_SetCmd(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj *c
 	if (objc < 4) {
 	    goto CMD_SET_USAGE;
 	} else if (objc == 4) {
-	    Tcl_Obj *resultPtr = Tcl_NewListObj(0, NULL);
 	    if (TableGetIndexObj(tablePtr, objv[3], &row, &col) != TCL_OK) {
 		return TCL_ERROR;
 	    }
+	    Tcl_Obj *resultPtr = Tcl_NewListObj(0, NULL);
 	    if (*str == 'r') {
 		max = tablePtr->cols+tablePtr->colOffset;
 		for (i=col; i<max; i++) {
@@ -1262,7 +1262,7 @@ int Table_HiddenCmd(ClientData clientData, Tcl_Interp *interp, int objc, Tcl_Obj
     if (objc == 2) {
 	/* return all "hidden" cells */
 	Tcl_HashSearch search;
-	Tcl_Obj *objPtr = Tcl_NewObj(), resultPtr;
+	Tcl_Obj *objPtr = Tcl_NewObj(), *resultPtr;
 
 	for (entryPtr = Tcl_FirstHashEntry(tablePtr->spanAffTbl, &search);
 	     entryPtr != NULL; entryPtr = Tcl_NextHashEntry(&search)) {
