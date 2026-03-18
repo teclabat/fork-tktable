@@ -1507,6 +1507,7 @@ static Tcl_Size TableFetchSelection(
 
 	/* Abort if no data or conversion to list fails */
 	if (value == NULL || Tcl_SplitList(interp, value, &listArgc, &listArgv) != TCL_OK) {
+	    if (value != NULL) Tcl_Free(value);
 	    return -1;
 	}
 	Tcl_Free(value);

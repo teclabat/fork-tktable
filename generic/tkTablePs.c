@@ -1102,10 +1102,12 @@ int Tk_TablePsFont(
 		return TCL_ERROR;
 	    }
 	    if (argc != 2) {
+		Tcl_Free((char *) argv);
 		goto badMapEntry;
 	    }
 	    size = strtod(argv[1], &end);
 	    if ((size <= 0) || (*end != 0)) {
+		Tcl_Free((char *) argv);
 		goto badMapEntry;
 	    }
 
