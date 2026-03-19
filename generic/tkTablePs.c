@@ -1095,7 +1095,7 @@ int Tk_TablePsFont(
 	list = Tcl_GetVar2(interp, psInfoPtr->fontVar, name, 0);
 	if (list != NULL) {
 	    if (Tcl_SplitList(interp, list, &argc, &argv) != TCL_OK) {
-	    badMapEntry:
+badMapEntry:
 		Tcl_ResetResult(interp);
 		Tcl_AppendResult(interp, "bad font map entry for \"", name,
 				 "\": \"", list, "\"", (char *) NULL);

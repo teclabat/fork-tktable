@@ -1506,8 +1506,12 @@ static Tcl_Size TableFetchSelection(
 	Tcl_DStringFree(&tablePtr->selection);
 
 	/* Abort if no data or conversion to list fails */
-	if (value == NULL || Tcl_SplitList(interp, value, &listArgc, &listArgv) != TCL_OK) {
+	if (value == NULL) {
 	    if (value != NULL) Tcl_Free(value);
+	    return -1;
+	}
+	if (Tcl_SplitList(interp, value, &listArgc, &listArgv) != TCL_OK) {
+	    Tcl_Free(value);
 	    return -1;
 	}
 	Tcl_Free(value);
@@ -1653,6 +1657,9 @@ static int Tk_TableObjCmd(
     }
 
     tablePtr = (Table *) Tcl_Alloc(sizeof(Table));
+    if (tablePtr == NULL) {
+	return TCL_ERROR;
+    }
     memset((void *) tablePtr, 0, sizeof(Table));
 
     /*
